@@ -99,8 +99,9 @@ class Baby extends Person {
     4. The call and apply methods allows 'this' to be explicitly defined.
   */
 
+  //test
   lauren = new Baby("Lauren", 'ducky');
-
+  lauren.eat('sweetcorn');
   console.log(lauren);
 
 ///////// END OF CHALLENGE /////////
