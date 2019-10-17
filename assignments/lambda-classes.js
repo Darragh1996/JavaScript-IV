@@ -28,6 +28,12 @@ class Instructor extends Person{
         console.log(`${student.name} receives a perfect score on ${subject}`);
     }
 
+    addOrSubtractFromGrade(student){
+        let num = Math.floor(Math.random()*10) + 1;
+        num *= Math.floor(Math.random()*2) == 1 ? 1 : -1;
+        return (student.grade + num);
+    }
+
 }
 
 class Student extends Person{
@@ -36,6 +42,7 @@ class Student extends Person{
         this.previousBackground = Attrs.previousBackground;
         this.className = Attrs.className;
         this.favSubjects = Attrs.favSubjects;
+        this.grade = Attrs.grade;
     }
 
     listSubjects(){
@@ -52,6 +59,14 @@ class Student extends Person{
     sprintChallenge(subject){
         console.log(`${this.name} has begun sprint challenge on ${subject}`);
         ;
+    }
+
+    graduate(){
+        if(this.grade >= 70){
+            console.log(`${this.name} graduated! with a grade of ${this.grade}%`);
+        }else{
+            console.log(`${this.name}'s grade is too low to graduate at ${this.grade}%`);
+        }
     }
 
 }
@@ -80,7 +95,8 @@ darragh = new Student({
     loc: 'Donegal',
     previousBackground: 'kitchen porter',
     className: 'WEBUEU4',
-    favSubjects: ['javascript', 'css', 'html']
+    favSubjects: ['javascript', 'css', 'html'],
+    grade: 60
 });
 
 alex = new Instructor({
@@ -116,3 +132,16 @@ tigran.demo('Javascript');
 tigran.grade(darragh, 'Javascript')
 tigran.standUp('webeu4_tigran');
 tigran.debugsCode(darragh, 'javascript');
+console.log('*************************************');
+//stretch tests
+console.log(darragh.grade);
+darragh.grade = tigran.addOrSubtractFromGrade(darragh);
+console.log(darragh.grade);
+darragh.grade = tigran.addOrSubtractFromGrade(darragh);
+console.log(darragh.grade);
+darragh.grade = tigran.addOrSubtractFromGrade(darragh);
+console.log(darragh.grade);
+darragh.grade = 68;
+darragh.graduate();
+darragh.grade = 71;
+darragh.graduate();
