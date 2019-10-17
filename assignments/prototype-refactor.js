@@ -8,22 +8,28 @@ Prototype Refactor
 
 */
 
-function Person(name, age) {
-  this.name = name;
-  this.age = age;
-  this.stomach = [];
-}
-Person.prototype.eat = function(food) {
-  if (this.stomach.length < 10) {
-    this.stomach.push(food);
+class Person {
+  constructor(name, age){
+    this.name = name;
+    this.age = age;
+    this.stomach = [];
   }
-};
-Person.prototype.poop = function() {
-  this.stomach.length = 0;
-};
-Person.prototype.toString = function() {
-  return `${this.name}, ${this.age}`;
-};
+
+  eat(food){
+    if (this.stomach.length < 10) {
+        this.stomach.push(food);
+      }
+  }
+
+  poop(){
+    this.stomach.length = 0;
+  }
+
+  toString(){
+    return `${this.name}, ${this.age}`;
+  }
+
+}
 
 /*
     TASK 2
@@ -39,26 +45,30 @@ Person.prototype.toString = function() {
           + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
   */
 
-function Car(model, milesPerGallon) {
-  this.model = model;
-  this.milesPerGallon = milesPerGallon;
-  this.tank = 0;
-  this.odometer = 0;
-}
-Car.prototype.fill = function(gallons) {
-  this.tank += gallons;
-};
-Car.prototype.drive = function(distance) {
-  let fuelNeeded = distance / this.milesPerGallon;
-  if (fuelNeeded <= this.tank) {
-    this.odometer += distance;
-    this.tank -= fuelNeeded;
-  } else {
-    this.odometer += this.milesPerGallon * this.tank;
+class Car {
+  constructor(model, milesPerGallon) {
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
     this.tank = 0;
-    return `I ran at of fuel at ${this.odometer} miles!`;
+    this.odometer = 0;
   }
-};
+
+  fill(gallons) {
+    this.tank += gallons;
+  }
+
+  drive(distance) {
+    let fuelNeeded = distance / this.milesPerGallon;
+    if (fuelNeeded <= this.tank) {
+      this.odometer += distance;
+      this.tank -= fuelNeeded;
+    } else {
+      this.odometer += this.milesPerGallon * this.tank;
+      this.tank = 0;
+      return `I ran at of fuel at ${this.odometer} miles!`;
+    }
+  }
+}
 
 /*
     TASK 3
@@ -67,17 +77,17 @@ Car.prototype.drive = function(distance) {
       - Besides the methods on Person.prototype, babies have the ability to `.play()`:
           + Should return a string "Playing with x", x being the favorite toy.
   */
-function Baby(name, favoriteToy) {
-  Person.call(this, name, favoriteToy);
-  this.name = name;
-  this.favoriteToy = favoriteToy;
+class Baby extends Person {
+  constructor(name, favoriteToy){
+    super(name);
+    this.favoriteToy = favoriteToy;
+  }
+
+  play(){
+    return `Playing with ${this.favoriteToy}`;
+  }
+
 }
-
-Baby.prototype = Object.create(Person.prototype);
-
-Baby.prototype.play = function() {
-  return `Playing with ${this.favoriteToy}`;
-};
 
 /* 
     TASK 4
@@ -88,6 +98,10 @@ Baby.prototype.play = function() {
     3. When a constructor function is used, 'this' refers to that instance of the object that is created and returned by the constructor function.
     4. The call and apply methods allows 'this' to be explicitly defined.
   */
+
+  lauren = new Baby("Lauren", 'ducky');
+
+  console.log(lauren);
 
 ///////// END OF CHALLENGE /////////
 ///////// END OF CHALLENGE /////////
