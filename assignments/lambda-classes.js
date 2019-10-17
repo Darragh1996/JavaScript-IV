@@ -28,10 +28,16 @@ class Instructor extends Person{
         console.log(`${student.name} receives a perfect score on ${subject}`);
     }
 
-    addOrSubtractFromGrade(student){
+    updateGrade(student){
         let num = Math.floor(Math.random()*10) + 1;
         num *= Math.floor(Math.random()*2) == 1 ? 1 : -1;
-        return (student.grade + num);
+        let newGrade = student.grade + num;
+        if(newGrade > 100){
+            newGrade = 100;
+        }else if(newGrade < 0){
+            newGrade = 0;
+        }
+        return (newGrade);
     }
 
 }
@@ -135,11 +141,11 @@ tigran.debugsCode(darragh, 'javascript');
 console.log('*************************************');
 //stretch tests
 console.log(darragh.grade);
-darragh.grade = tigran.addOrSubtractFromGrade(darragh);
+darragh.grade = tigran.updateGrade(darragh);
 console.log(darragh.grade);
-darragh.grade = tigran.addOrSubtractFromGrade(darragh);
+darragh.grade = tigran.updateGrade(darragh);
 console.log(darragh.grade);
-darragh.grade = tigran.addOrSubtractFromGrade(darragh);
+darragh.grade = tigran.updateGrade(darragh);
 console.log(darragh.grade);
 darragh.grade = 68;
 darragh.graduate();
